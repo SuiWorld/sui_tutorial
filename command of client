@@ -1,0 +1,22 @@
+sui client publish --path ~/tutorial/sui_turtorial/stoken --gas-budget 30000
+
+Sui = { local = "../../../sui/crates/sui-framework" }
+
+sui client call --package 0x8e99869b046c0b98be99e427303db9308551c68f \
+                --module stoken \
+                --function pay_coin \
+                --gas-budget 10000 \
+                --args 0x3a2d37b6c420487fe6a5d5071666ad9f74e920e7 0xd84ae315068981a7b838aae78ab5dd2afd3b3c3c 500
+
+sui client call --package 0x2 \
+                --module coin \
+                --function mint_and_transfer \
+                --gas-budget 10000 \
+                --args 0xc4d18216d96824d0f3cb6e996823665c3e1efff3 1000 0x46e7b8d52a5edeb8db06a63e3415549727c00b2f \
+                --type-args 0x1307c049ab057312b3bd66920d9bcb1c739e2d32::stk::STK
+
+sui client call --package 0x1307c049ab057312b3bd66920d9bcb1c739e2d32 \
+                --module stk \
+                --function pay_coin \
+                --gas-budget 10000 \
+                --args 0xb953bfe8779510da66cc92d7d7d844039852534f 0xc4d18216d96824d0f3cb6e996823665c3e1efff3 500
